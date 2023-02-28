@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>WD101 L-8 assignment</title>
+
+</head>
+
+<body>
+
+    <h1 align="center" class="heading">Capstone Project</h1>
+    <div class="actual">
+        <form class="form" id="form">
+            <h2 align="center" class="subheading">Registration Form</h2>
+
+            <table class="tablemargin" cellspacing="28px">
+                <tr>
+                    <td><label for="name" class="label2">Name :</label></td>
+                    <td>
+                        <input class="input" type="text" name="name" id="name" placeholder="Full Name" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email" class="label2">E-mail :</label></td>
+                    <td>
+                        <input class="input" type="email" name="email" id="email" placeholder="Email" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="name" class="label2">Password :</label></td>
+                    <td>
+                        <input class="input" type="password" name="password" id="password" placeholder="Password"
+                            required />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dob" class="label2">Date Of Birth :</label></td>
+                    <td>
+                        <input style="width: 220px" class="input" type="date" name="dob" id="dob" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="checkbox" name="terms" id="terms" />
+                        <label for="terms" class="label2">Accepted Terms?</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn" type="submit">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div class="entry">
+        <h2 class="subheading2">Entries</h2>
+        <div id="tableDiv"></div>
+    </div>
+</body>
+
+</html>
