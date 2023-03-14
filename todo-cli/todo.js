@@ -3,7 +3,7 @@ const todoList = () => {
   all = []
   const add = (todoItem) => {
     all.push(todoItem)
-  };
+  }
   const markAsComplete = (index) => {
     all[index].completed = true
   }
@@ -11,26 +11,24 @@ const todoList = () => {
   const overdue = () => {
     // Write the date check condition here and return the array
     // of overdue items accordingly.
-    let over = []
-    all.forEach(todo => todo.dueDate < today && over.push(todo));
+    const over = [];
+    all.filter(todo => todo.dueDate < today && over.push(todo));
     return over
-  };
+  }
 
-  
   const dueToday = () => {
     // Write the date check condition here and return the array
     // of todo items that are due today accordingly.
     return all.filter((todo) => todo.dueDate == today);
-  };
-
+  }
 
   const dueLater = () => {
     // Write the date check condition here and return the array
     // of todo items that are due later accordingly.
-    let later = []
+    const later =[];
     all.forEach(todo => todo.dueDate > today && later.push(todo));
     return later
-}
+  }
 
   const toDisplayableList = (list) => {
     // Format the To-Do list here, and return the output string
@@ -57,6 +55,7 @@ const todoList = () => {
       }
       return result.join('\n')
     }
+
   return {
     all,
     add,
