@@ -29,32 +29,43 @@ const todoList = () => {
     all.forEach(todo => todo.dueDate > today && later.push(todo));
     return later
   }
-
+  
   const toDisplayableList = (list) => {
     // Format the To-Do list here, and return the output string
     // as per the format given above.
-    let x
-        var result = []
-        for (x=0;x<list.length;x++) {
-            if (list[x].completed === false) {
-                if (list[x].dueDate === today) {
-                    result.push(`[ ] ${list[x].title}`)
-                }
-                else {
-                    result.push(`[ ] ${list[x].title} ${list[x].dueDate}`)
-                }
-            }
-            else {
-                if (list[x].dueDate===today) {
-                    result.push(`[x] ${list[x].title}`)
-                }
-                else {
-                    result.push(`[x] ${list[x].title} ${list[x].dueDate}`)
-                }          
-            }
-      }
-      return result.join('\n')
-    }
+    return list.map((item) => {
+        return `${item.completed ? "[x]" : "[ ]"} ${item.title.trim()} ${
+          item.dueDate === today ? "" : item.dueDate
+        }`;
+      })
+      .join("\n");
+  };
+
+//   const toDisplayableList = (list) => {
+//     // Format the To-Do list here, and return the output string
+//     // as per the format given above.
+//     let x
+//         var result = []
+//         for (x=0;x<list.length;x++) {
+//             if (list[x].completed === false) {
+//                 if (list[x].dueDate === today) {
+//                     result.push(`[ ] ${list[x].title}`)
+//                 }
+//                 else {
+//                     result.push(`[ ] ${list[x].title} ${list[x].dueDate}`)
+//                 }
+//             }
+//             else {
+//                 if (list[x].dueDate===today) {
+//                     result.push(`[x] ${list[x].title}`)
+//                 }
+//                 else {
+//                     result.push(`[x] ${list[x].title} ${list[x].dueDate}`)
+//                 }          
+//             }
+//       }
+//       return result.join('\n')
+//     }
 
   return {
     all,
