@@ -16,11 +16,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "changeme",
-    "database": "wd-todo-prod",
-    "host": "127.0.0.1",
-    "logging": false,
-    "dialect": "mysql"
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
   }
 }
