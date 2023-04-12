@@ -1,4 +1,8 @@
 body{
-    background-color: paleturquoise;
-    font-family: 'Courier New', Courier, monospace;
+    background-color: #cfccd6;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.Todo-Item:hover .trash-icon {
+    display: block;
+  }
