@@ -4,12 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./css/styles.css" rel="stylesheet" />
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>My Todo-application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <%- include('header.ejs') %> 
-    <%- include('todos.ejs') %> 
-    <%- include('footer.ejs') %>
+    <div class="grid grid-col-6">
+      <div class="col-start-3 col-span-2">
+        <%- include('header.ejs') %>
+        <form>
+          <div class="flex gap-2 py-4">
+            <div class="flex-none">
+              <input
+                type="text"
+                placeholder="What's next ?"
+                class="border border-gray-300 text-gray-900 w-full rounded p-2 text-sm"
+                required
+              />
+            </div>
+            <div class="flex-none">
+              <input
+                type="date"
+                class="border border-gray-300 text-gray-900 w-full rounded p-2 text-sm leading-4"
+              />
+            </div>
+            <div class="flex-none">
+              <button
+                type="submit"
+                class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-2"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="grid grid-col-6">
+      <div class="col-start-2 col-span-1"><%- include('todos.ejs') %></div>
+    </div>
   </body>
 </html>
