@@ -3,16 +3,17 @@
 
 const express = require("express");
 const app = express();
-var tinyCsrf = require('tiny-csrf');
-var cookieParser = require("cookie-parser");
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 const path = require("path");
+var tinyCsrf = require('tiny-csrf');
+var cookieParser = require("cookie-parser");
+
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('shh! secret'));
-app.use(tinyCsrf("",["POST", "PUT", "DELETE"]));
+app.use(cookieParser('shh! some secret string'));
+app.use(tinyCsrf("Padjdkj12990eiAAdjiosa8h6bssSain",["POST", "PUT", "DELETE"]));
 app.set("view engine", "ejs");
 
 app.get("/", async (request, response) => {

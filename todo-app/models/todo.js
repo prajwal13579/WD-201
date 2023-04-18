@@ -1,5 +1,5 @@
 "use strict";
-const { Model, where, Op } = require("sequelize");
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -10,8 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-
-    
 
     static async getTodos() {
       return this.findAll();
@@ -43,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
           completed: false,
         },
         order: [['id', 'ASC']],
-      })
+      });
       }catch (error){
         console.log(error)
       }
@@ -77,25 +75,22 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async getRid(id){
+    setCompletionStatus(bool){
+      return this.update({ completed: bool });
+    }
+
+    static async remove(id){
       return this.destroy({where: {id: id}})
     }
 
-    setCompletionStatus(bool){
+    static addTodo({title, dueDate}){
+      return this.create({title: title, dueDate: dueDate, completed: false});
+    }
+    
+    markAsCompleted() {
       return this.update({ completed: !this.completed });
     }
 
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
-    }
-
-    markAsCompleted() {
-      return this.update({ completed: true });
-    }
-
-    deleteTodo() {
-      return this.destroy({where: {id: this.id}});
-    }
   }
   Todo.init(
     {
