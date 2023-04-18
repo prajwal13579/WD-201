@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, where, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -11,14 +11,84 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
+    
+
+    static async getTodos() {
+      return this.findAll();
+    }
+    
+    static async overDue() {
+      try{
+        return this.findAll({
+          where: {
+            dueDate: {
+              [Op.lt]: new Date(),
+            },
+            completed: false,
+          },
+          order: [['id', 'ASC']], 
+        })
+      }catch (error){
+        console.log(error)
+      }
+    }
+
+    static async dueToday() {
+      try{
+        return this.findAll({
+          where: {
+            dueDate:{
+            [Op.eq]: new Date(),
+          },
+          completed: false,
+        },
+        order: [['id', 'ASC']],
+      })
+      }catch (error){
+        console.log(error)
+      }
+    }
+
+    static async dueLater() {
+      try{
+        return this.findAll({
+          where: {
+            dueDate: {
+              [Op.gt]: new Date(),
+            },
+            completed: false,
+          },
+          order: [['id', 'ASC']],
+        })
+      }catch(error){
+        console.log(error)
+      }
+    }
+
+    static async completed(){
+      try{
+        return this.findAll({
+          where: {
+            completed: true,
+          },
+        })
+      }catch(error){
+        console.log(error)
+      }
+    }
+
+    static async getRid(id){
+      return this.destroy({where: {id: id}})
+    }
+
+    setCompletionStatus(bool){
+      return this.update({ completed: !this.completed });
+    }
+
     static addTodo({ title, dueDate }) {
       return this.create({ title: title, dueDate: dueDate, completed: false });
     }
 
-    static getTodos() {
-      return this.findAll();
-    }
-    
     markAsCompleted() {
       return this.update({ completed: true });
     }

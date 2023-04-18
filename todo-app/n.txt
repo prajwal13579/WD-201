@@ -1,0 +1,12 @@
+ allTodos,
+      overDue,
+      dueToday,
+      dueLater,
+      completedItems,
+
+
+const allTodos = await Todo.getTodos();
+  const overDue = await Todo.overDue();
+  const dueToday = await Todo.dueToday();
+  const dueLater = await Todo.dueLater();
+  const completedItems = await Todo.completed();
