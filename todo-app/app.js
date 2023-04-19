@@ -105,10 +105,11 @@ app.put("/todos/:id", async (request, response) => {
 });
 
 app.delete("/todos/:id", async (request, response) => {
+  app.get("/");
   console.log("Delete a todo by ID: ", request.params.id);
   try {
-    await Todo.getRid(request.params.id);
-    return response.json({ success: true });
+    await Todo.remove(request.params.id);
+    return response.json({ success: true, });
   } catch (error) {
     return response.status(422).json(error);
   }
