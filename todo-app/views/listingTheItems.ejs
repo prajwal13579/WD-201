@@ -7,7 +7,7 @@
         "checked" : "" %> class="w-4 h-4 text-blue-600 bg-gray-500 rounded border"
         onclick="updateTodo(<%=id %>, <%= !completionStatus %>)"/>
         <label for="todo-checkbox-<%= id %>" class="ml-2 text-md text-gray-600 cursor-pointer" >
-          `<%= title %>
+          <%= title %>
           </label>
         <a href="#" class="hidden trash-icon ml-2" onclick="deleteTodo(<%=id%>)"
           ><svg

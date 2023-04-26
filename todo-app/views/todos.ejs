@@ -29,6 +29,16 @@
             if (res.ok) window.location.reload();
           }).catch((err) => console.error(err));
       }
+
+      var lenthOfTodo = document.getElementById('todoItemLen');
+      var button = document.getElementById('button')
+      function lenTodo(){
+        if (lenthOfTodo.length <= 5){
+          alert("Size of todo must be greater than 5!");
+        }
+      }
+
+      button.addEventListener('click', lenTodo)
     </script>
   </head>
   <body>
@@ -40,13 +50,13 @@
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="flex gap-2 py-4">
             <div class="flex-auto">
-              <input type="text" name="title" class="border border-gray-600 text-sm text-gray-900 font-semibold w-full rounded-full p-2" placeholder="What's Next?"/>
+              <input id="todoItemLen" type="text" name="title" class="border border-gray-600 text-sm text-gray-900 font-semibold w-full rounded-full p-2" placeholder="What's Next?"/>
             </div>
             <div class="flex-auto">
               <input type="date" name="dueDate" placeholder="dd/mm/yyyy" class="border border-gray-600 text-xs text-gray-900 font-semibold w-full rounded-full p-2 h-full"/>
             </div>
             <div class="flex-none">
-              <button type="submit"  class="bg-green-600 text-white px-5 px-2 w-full h-full rounded font-medium mr-2 mb-2">
+              <button id="button" type="submit"  class="bg-green-600 text-white px-5 px-2 w-full h-full rounded font-medium mr-2 mb-2">
                 Add
               </button>
             </div>
