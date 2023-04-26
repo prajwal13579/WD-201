@@ -87,8 +87,8 @@ describe("Todo test suite", () => {
       .set("Accept", "application/json");
     const parsedResponse = JSON.parse(todoResponse.text);
     // console.log(`Todo Response: ${todoResponse.text}`);
-    const todayItemsCount = parsedResponse.todayItems.length;
-    const latestTodo = parsedResponse.todayItems[todayItemsCount - 1];
+    const todayItemsCount = parsedResponse.dueTodayItems.length;
+    const latestTodo = parsedResponse.dueTodayItems[todayItemsCount - 1];
 
      res = await agent.get("/todos");
      csrfToken = extractCsrfToken(res);
@@ -121,8 +121,8 @@ describe("Todo test suite", () => {
       .get("/todos")
       .set("Accept", "application/json");
     const parsedResponse = JSON.parse(todoResponse.text);
-    const todayItemsCount = parsedResponse.todayItems.length;
-    const latestTodo = parsedResponse.todayItems[todayItemsCount - 1];
+    const todayItemsCount = parsedResponse.dueTodayItems.length;
+    const latestTodo = parsedResponse.dueTodayItems[todayItemsCount - 1];
 
     res = await agent.get("/todos");
     csrfToken = extractCsrfToken(res);
@@ -154,8 +154,8 @@ describe("Todo test suite", () => {
       .get("/todos")
       .set("Accept", "application/json");
     const parsedResponse = JSON.parse(todoResponse.text);
-    const dueTodayCount = parsedResponse.todayItems.length;
-    const latestTodo = parsedResponse.todayItems[dueTodayCount - 1];
+    const dueTodayCount = parsedResponse.dueTodayItems.length;
+    const latestTodo = parsedResponse.dueTodayItems[dueTodayCount - 1];
     const todoID = latestTodo.id;
     res = await agent.get("/todos");
     csrfToken = extractCsrfToken(res);
