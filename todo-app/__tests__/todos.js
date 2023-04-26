@@ -1,4 +1,3 @@
-/* eslint-disable no-redeclare */
 const request = require("supertest");
 var cheerio = require("cheerio");
 const db = require("../models/index");
