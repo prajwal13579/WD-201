@@ -9,20 +9,15 @@
     <link href="./css/styles.css" rel="stylesheet" />
     <title>To-Do Application</title>
     <script>
-      var token = document
-        .querySelector(`meta[name="csrf-token"]`)
-        .getAttribute("content");
-
+      var token = document.querySelector(`meta[name="csrf-token"]`).getAttribute("content");
       function updateTodo(id, completed) {
         fetch(`/todos/${id}`, {
           method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ _csrf: token, completed: completed }),
-        })
-          .then((res) => {
+        }).then((res) => {
             if (res.ok) window.location.reload();
-          })
-          .catch((err) => console.error(err));
+          }).catch((err) => console.error(err));
       }
 
       function deleteTodo(id) {
@@ -30,11 +25,9 @@
           method: "delete",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ _csrf: token }),
-        })
-          .then((res) => {
+        }).then((res) => {
             if (res.ok) window.location.reload();
-          })
-          .catch((err) => console.error(err));
+          }).catch((err) => console.error(err));
       }
     </script>
   </head>
@@ -47,41 +40,28 @@
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="flex gap-2 py-4">
             <div class="flex-auto">
-              <input
-                type="text"
-                name="title"
-                class="border border-gray-600 text-sm text-gray-900 font-semibold w-full rounded p-2"
-                placeholder="What's Next?"
-              />
+              <input type="text" name="title" class="border border-gray-600 text-sm text-gray-900 font-semibold w-full rounded-full p-2" placeholder="What's Next?"/>
             </div>
             <div class="flex-auto">
-              <input
-                type="date"
-                name="dueDate"
-                placeholder="dd/mm/yyyy"
-                class="border border-gray-600 text-xs text-gray-900 font-semibold w-full rounded p-2 h-full"
-              />
+              <input type="date" name="dueDate" placeholder="dd/mm/yyyy" class="border border-gray-600 text-xs text-gray-900 font-semibold w-full rounded-full p-2 h-full"/>
             </div>
             <div class="flex-none">
-              <button
-                type="submit"
-                class="bg-green-600 text-white px-5 px-2 w-full h-full rounded font-medium mr-2 mb-2"
-              >
+              <button type="submit"  class="bg-green-600 text-white px-5 px-2 w-full h-full rounded font-medium mr-2 mb-2">
                 Add
               </button>
             </div>
           </div>
         </form>
-        <%- include('todo.ejs', {todosList: overdueItems, typeID: "overdue",
-        type: "Overdue"}) %> <%- include('todo.ejs', {todosList: todayItems,
+        <%- include('todo.ejs', {todosList: overDueItems, typeID: "overdue",
+        type: "Overdue"}) %> <%- include('todo.ejs', {todosList: dueTodayItems,
         typeID: "today", type: "Due Today"}) %> <%- include('todo.ejs',
-        {todosList: laterItems, typeID: "later", type: "Due Later"}) %> <%-
+        {todosList: dueLaterItems, typeID: "later", type: "Due Later"}) %> <%-
         include('todo.ejs', {todosList: completedItems, typeID: "completed",
         type: "Completed Items"}) %>
 
         <% if(messages && messages.error && messages.error.length > 0)  { %>
-    <% for(var i=0; i<messages.error.length; i++) { %>
-          <%- include('notifications.ejs', {error: messages.error[i]})%>
+        <% for(var i=0; i<messages.error.length; i++) { %>
+        <%- include('noti.ejs', {error: messages.error[i]})%>
     <% } %>
     <% } %>
     </div>

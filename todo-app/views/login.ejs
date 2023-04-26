@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="<%= csrfToken %>" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="./css/styles.css" rel="stylesheet" />
-    <title>Sign in</title>
+    <title>Log in</title>
   </head>
   <body>
     <div class="grid grid-cols-6">
@@ -18,32 +18,21 @@
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="py-3">
             <label for="firstName ">Email:</label>
-            <input
-              type="email"
-              name="email"
-              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
-            />
+            <input type="email" name="email" class="border border-gray-300 text-gray-900 rounded p-2 w-full" />
           </div>
           <div class="py-3">
             <label for="firstName">Password:</label>
-            <input
-              type="password"
-              name="password"
-              class="border border-gray-300 text-gray-900 rounded p-2 w-full mb-4"
-            />
+            <input type="password" name="password" class="border border-gray-300 text-gray-900 rounded p-2 w-full mb-4" />
           </div>
-          <button
-            type="submit"
-            class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2"
-          >
+          <button type="submit" class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2">
             Sign in
           </button>
         </form>
-         <% if(messages && messages.error && messages.error.length > 0)  { %>
-  <% for(var i=0; i<messages.error.length; i++) { %>
-          <%- include('notifications.ejs', {error: messages.error[i]})%>
-  <% } %>
-<% } %>
+        <% if(messages && messages.error && messages.error.length > 0)  { %>
+        <% for(var i=0; i<messages.error.length; i++) { %>
+        <%- include('noti.ejs', {error: messages.error[i]})%>
+        <% } %>
+        <% } %>
       </div>
     </div>
   </body>

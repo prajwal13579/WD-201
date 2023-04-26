@@ -23,29 +23,12 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async getAllTodos(userId) {
+    static async getTodos(userId) {
       return this.findAll({
         where: {
           userId,
         },
       });
-    }
-
-    static async overdue(userId) {
-      try {
-        return this.findAll({
-          where: {
-            dueDate: {
-              [Op.lt]: new Date(),
-            },
-            completed: false,
-            userId,
-          },
-          order: [["id", "ASC"]], //idk if it still rejects :/
-        });
-      } catch (error) {
-        console.error(error);
-      }
     }
 
     static async dueToday(userId) {
@@ -64,6 +47,25 @@ module.exports = (sequelize, DataTypes) => {
         console.error(error);
       }
     }
+
+    static async overDue(userId) {
+      try {
+        return this.findAll({
+          where: {
+            dueDate: {
+              [Op.lt]: new Date(),
+            },
+            completed: false,
+            userId,
+          },
+          order: [["id", "ASC"]], //idk if it still rejects :/
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+
 
     static async dueLater(userId) {
       try {
