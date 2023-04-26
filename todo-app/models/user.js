@@ -1,6 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -14,52 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
       });
     }
-    static async allusers() {
-      return this.findAll({});
-    }
-
-    static async deleteUser() {
-      return this.destroy({ truncate: { cascade: true } });
-    }
   }
   User.init(
     {
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          len: { args: 1, msg: "FirstName Required" },
-        },
-      },
+      firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: {
-          args: true,
-          msg: "Credentials already existing , Try Sign-in",
-        },
-        validate: {
-          notNull: true,
-          len: {
-            args: 1,
-            msg: "Email Required",
-          },
-        },
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          async isNotNullString(value) {
-            if (await bcrypt.compare("", value)) {
-              throw new Error("Password Required");
-            }
-          },
-        },
-      },
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
     },
     {
       sequelize,

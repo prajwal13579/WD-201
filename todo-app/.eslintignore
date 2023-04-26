@@ -1,3 +1,4 @@
 migrations
 models
 app.js
+__tests__
