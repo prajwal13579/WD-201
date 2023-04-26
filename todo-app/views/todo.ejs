@@ -1,0 +1,13 @@
+<div>
+  <div class="flex items-center">
+    <h5><%= type %></h5>
+    <div class="bg-gray-300 rounded ml-2 px-3 text-sm">
+      <p id="count-<%= typeID %>"><%= todosList.length %></p>
+    </div>
+  </div>
+  <ul class="list-none">
+    <% for(var i=0;i<todosList.length;i++) { %> <%- include('listItem.ejs',
+    {id: todosList[i].id, completionStatus: todosList[i].completed, title:
+    todosList[i].title}) %> <% } %>
+  </ul>
+</div>

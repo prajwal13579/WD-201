@@ -1,41 +1,90 @@
-<div>
-    <div class="flex items-center">
-      <h5><%= type %></h5>
-      <div class="bg-gray-300 rounded ml-2 px-3 text-sm">
-        <p id="count-<%= typeID %>"><%= todosList.length %></p>
-      </div>
-    </div>
-    <ul class="list-none">
-      <% for(var i=0;i<todosList.length;i++) { %> <li class="Todo-Item">
-        <div>
-          <div
-            class="flex items-center w-fit my-2 px-2 py-1 hover:bg-purple-50 rounded"
-          >
-            <input id="todo-checkbox-<%= todosList[i].id %>" type="checkbox" <%= todosList[i].completed?
-            "checked" : "" %> class="w-4 h-4 text-blue-600 bg-gray-500 rounded border"
-            onclick="updateTodo(<%=todosList[i].id %>, <%= !todosList[i].completed %>)"/>
-            <label
-              for="todo-checkbox-<%= todosList[i].id %>"
-              class="ml-2 text-md text-gray-600 cursor-pointer"
-              ><%= todosList[i].title %></label>
-            <a href="#" class="hidden trash-icon ml-2" onclick="deleteTodo(<%=todosList[i].id%>)"
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-4 h-4"
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./css/styles.css" rel="stylesheet" />
+    <title>To-Do Application</title>
+    <script>
+      var token = document
+        .querySelector(`meta[name="csrf-token"]`)
+        .getAttribute("content");
+
+      function updateTodo(id, completed) {
+        fetch(`/todos/${id}`, {
+          method: "put",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _csrf: token, completed: completed }),
+        })
+          .then((res) => {
+            if (res.ok) window.location.reload();
+          })
+          .catch((err) => console.error(err));
+      }
+
+      function deleteTodo(id) {
+        fetch(`/todos/${id}`, {
+          method: "delete",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _csrf: token }),
+        })
+          .then((res) => {
+            if (res.ok) window.location.reload();
+          })
+          .catch((err) => console.error(err));
+      }
+    </script>
+  </head>
+  <body>
+    <div class="grid grid-cols-6">
+      <div class="col-start-3 col-span-2">
+        <%- include('header.ejs') %>
+        <a href="/signout">Signout</a>
+        <form action="/todos" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <div class="flex gap-2 py-4">
+            <div class="flex-auto">
+              <input
+                type="text"
+                name="title"
+                class="border border-gray-600 text-sm text-gray-900 font-semibold w-full rounded p-2"
+                placeholder="What's Next?"
+              />
+            </div>
+            <div class="flex-auto">
+              <input
+                type="date"
+                name="dueDate"
+                placeholder="dd/mm/yyyy"
+                class="border border-gray-600 text-xs text-gray-900 font-semibold w-full rounded p-2 h-full"
+              />
+            </div>
+            <div class="flex-none">
+              <button
+                type="submit"
+                class="bg-green-600 text-white px-5 px-2 w-full h-full rounded font-medium mr-2 mb-2"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                />
-              </svg>
-            </a>
+                Add
+              </button>
+            </div>
           </div>
-        </div>
-      </li> <% } %>
-    </ul>
-  </div>
+        </form>
+        <%- include('todo.ejs', {todosList: overdueItems, typeID: "overdue",
+        type: "Overdue"}) %> <%- include('todo.ejs', {todosList: todayItems,
+        typeID: "today", type: "Due Today"}) %> <%- include('todo.ejs',
+        {todosList: laterItems, typeID: "later", type: "Due Later"}) %> <%-
+        include('todo.ejs', {todosList: completedItems, typeID: "completed",
+        type: "Completed Items"}) %>
+
+        <% if(messages && messages.error && messages.error.length > 0)  { %>
+    <% for(var i=0; i<messages.error.length; i++) { %>
+          <%- include('notifications.ejs', {error: messages.error[i]})%>
+    <% } %>
+    <% } %>
+    </div>
+    </div>
+  </body>
+</html>
