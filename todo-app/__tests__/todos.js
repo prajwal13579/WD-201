@@ -2,8 +2,7 @@ const request = require("supertest");
 const db = require("../models/index");
 const app = require("../app");
 var cheerio = require("cheerio");
-const csrf = require("csrf");
-
+// const csrf = require("csrf");
 let server, agent;
 function extractCsrfToken(res) {
   var $ = cheerio.load(res.text);
